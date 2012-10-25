@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699544(BasicNewsRecipe):
+    title          = u'Marcopolo'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'marcopolo', u'http://marcopolo.tibetcul.com/home.php?mod=rss&uid=19')]

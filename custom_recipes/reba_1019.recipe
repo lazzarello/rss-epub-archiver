@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699366(BasicNewsRecipe):
+    title          = u'reba'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'reba', u'http://reba.tibetcul.com/home.php?mod=rss&uid=9749')]

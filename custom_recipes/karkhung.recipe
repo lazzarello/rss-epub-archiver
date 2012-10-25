@@ -1,0 +1,6 @@
+class BatchArchiveRecipe(BasicNewsRecipe):
+    title = u'Karkhung'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+    feeds = [(u'Karkhungd',u'http://karkhung.com/?feed=rss2')]

@@ -1,0 +1,6 @@
+class BasicUserRecipe1348639843(BasicNewsRecipe):
+    title          = u'Aosai'
+    oldest_article = (365 * 5) # go back 5 years. 
+    max_articles_per_feed = 100
+    auto_cleanup = True
+    feeds          = [(u'Aosai', u'http://aosai.tibetcul.com/home.php?mod=rss&uid=12064')]

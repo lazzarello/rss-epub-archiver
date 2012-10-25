@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699567(BasicNewsRecipe):
+    title          = u'Zhaxilongzhu'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'zhaxilongzhu', u'http://zhaxilongzhu.tibetcul.com/home.php?mod=rss&uid=9016')]

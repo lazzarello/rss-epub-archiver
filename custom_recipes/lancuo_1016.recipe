@@ -1,0 +1,7 @@
+class BasicUserRecipe1348640355(BasicNewsRecipe):
+    title          = u'Lancuo'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'lancuo', u'http://lancuo.tibetcul.com/home.php?mod=rss&uid=695')]

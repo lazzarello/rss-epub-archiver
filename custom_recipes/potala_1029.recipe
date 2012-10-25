@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699672(BasicNewsRecipe):
+    title          = u'Potala'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'potala', u'http://potala.tibetcul.com/home.php?mod=rss&uid=15407')]

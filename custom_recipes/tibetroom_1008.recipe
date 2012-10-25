@@ -1,0 +1,7 @@
+class BasicUserRecipe1348639956(BasicNewsRecipe):
+    title          = u'Tibetroom'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'tibetroom', u'http://tibetroom.tibetcul.com/home.php?mod=rss&uid=11606')]

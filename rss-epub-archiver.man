@@ -1,0 +1,35 @@
+NAME
+	rss-epub-archiver -- Fetch an RSS feed and convert it into the EPUB format
+
+SYNOPSIS
+	rss-epub-archiver url title [--test --verbose] [--recipe recipe]
+
+DESCRIPTION
+	This utility downloads a URL in RSS formated text and calls the
+	ebook-convert utility to extract the contents and convert them into the EPUB
+	format for offline reading. This format is supported by a large number of
+	software and hardware reading devices.
+
+	The transcoding engine is provided by Calibre, an open source ebook
+	conversion application. This application runs with a GUI but it provides a
+	shell interface to the conversion engine. To properly convert a feed, a file
+	called a 'recipe' must first be created. 
+
+	The following options are available:
+
+	--test		Only download the first two articles in the feed. Checks the possibility of a successful
+			conversion.
+
+	--verbose	Enable verbose output. Use for debugging. Passes '-v -v' to ebook-convert.
+
+FILES
+
+SEE ALSO
+	ebook-convert, calibre, ebook-viewer
+
+STANDARDS
+	Epub. Rich Site Summary (RSS).
+
+AUTHORS
+	Lee Azzarello <lee@guardianproject.info>
+		September 27, 2012

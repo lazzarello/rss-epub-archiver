@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699321(BasicNewsRecipe):
+    title          = u'Gedunchoephel'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'gedunchoephel', u'http://gedunchoephel.tibetcul.com/home.php?mod=rss&uid=10921')]

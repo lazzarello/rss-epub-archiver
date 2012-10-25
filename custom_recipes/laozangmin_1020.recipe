@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699391(Basic):
+    title          = u'Laozangmin'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'laozangmin', u'http://laozangmin.tibetcul.com/home.php?mod=rss&uid=1458')]

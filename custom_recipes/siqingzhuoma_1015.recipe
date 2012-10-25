@@ -1,0 +1,7 @@
+class BasicUserRecipe1348640330(BasicNewsRecipe):
+    title          = u'Siqingzhuoma'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'siqingzhuoma', u'http://siqingzhuoma.tibetcul.com/home.php?mod=space&uid=623')]

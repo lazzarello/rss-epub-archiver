@@ -1,0 +1,7 @@
+class BasicUserRecipe1348640062(BasicNewsRecipe):
+    title          = u'Danda-466572'
+    oldest_article = 30
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'danda-466572', u'http://danda-466572.tibetcul.com/home.php?mod=rss&uid=12512')]

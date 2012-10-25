@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699342(BasicNewsRecipe):
+    title          = u'Wangchuktseten'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'wangchuktseten', u'http://wangchuktseten.tibetcul.com/home.php?mod=rss&uid=42')]

@@ -1,0 +1,7 @@
+class BasicUserRecipe1348639140(BasicNewsRecipe):
+    title          = u'Lwcaidan'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'Lwcaidan', u'http://lwcaidan.tibetcul.com/home.php?mod=rss&uid=12371')]

@@ -1,0 +1,7 @@
+class BasicUserRecipe1348699522(BasicNewsRecipe):
+    title          = u'Geyang'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'geyang', u'http://geyang.tibetcul.com/home.php?mod=rss&uid=12193')]

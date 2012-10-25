@@ -1,0 +1,7 @@
+class BasicUserRecipe1348640191(BasicNewsRecipe):
+    title          = u'Ericduojie'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'ericduojie', u'http://ericduojie.tibetcul.com/home.php?mod=rss&uid=2367')]

@@ -1,0 +1,6 @@
+class BatchArchiveRecipe(BasicNewsRecipe):
+    title = u'High Peaks Pure Earth'
+    oldest_article = (365 * 5)
+    max_articles_per_feed = 100
+    auto_cleanup = True
+    feeds = [(u'High Peaks Pure Earth',u'http://highpeakspureearth.com/feed/?lang=tb')]
