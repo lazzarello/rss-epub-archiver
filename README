@@ -1,0 +1,56 @@
+rss-epub-archiver
+
+Alpha release. October 1 2012.
+
+This utility abstracts the ebook-convert utility included with the Calibre
+ebook conversion application. This alpha release runs in a shell in a single
+thread. It takes two arguments, the URL of the feed to convert and the title of
+the ebook.
+
+It depends on Python 2.7.2 and Calibre 0.8.70. There are no python modules
+imported outside of the core, so it should run on any system that can fulfill
+these two dependencies. It was written on MacOS X 10.8 and tested on Debian
+GNU/Linux “Wheezy” and Ubuntu 12.04 LTS “Precise”. It runs without a GUI,
+despite the majority of Calibre’s functionality being wrapped up in one.
+
+The utility is composed of two parts:  a recipe class and a command line executable.
+
+The recipe class:
+
+This class is a code generator. Calibre requires each news feed conversion job
+to be defined as a python class with a small set of required attributes. There
+are hundreds of optional attributes and a complete Domain Specific Language
+which can be used in this class, though I’ve stuck to the defaults for this
+release. Each instance of the class writes a file to /tmp with executable
+python code in it.
+
+The command line executable:
+
+This script takes two required arguments, the URL of the feed and the title of
+the ebook to be generated. When run it will download the last 5 years of
+articles from the URL and create an ebook in the EPUB format with all text and
+pictures of the original document. It writes the file to /tmp/ebooks/ though
+future releases will make this directory a user preference.
+
+The script writes verbose logging to stdout. If run via cron the sysadmin
+should ensure this output is written to a log file to diagnose problems.
+
+The script writes the Calibre recipe class file to
+/tmp/conversion_recipe_00000.recipe where 00000 is a random 5 digit string.
+These class files are not cleaned up, so the sysadmin should take care to
+delete all .recipe files once the ebooks are successfully converted and copied
+off the server.
+
+The utility accepts arguments in ASCII. IT IS NOT UTF-8 SAFE for neither titles
+nor URLs! This is a high priority but was not possible in the two week
+development schedule.
+
+Future developments:
+
+1. UTF-8 text as user input.
+2. Move all functions in the executable into the recipe class so the utility can be multi-threaded.
+3. Add smart user arguments: --title and --url
+4. Allow epub output directory to be configured by the user
+5. Create a configuration format in JSON to do batch conversion in a single run
+6. Build a web application front end
+7. Build a pubsub engine for the web app to do async conversion I/O
