@@ -1,5 +1,6 @@
-# import argument parsing
+# import argument and option parsing
 from sys import argv
+from optparse import OptionParser
 # import exit codes
 from sys import exit
 # import regular expressions
@@ -62,17 +63,16 @@ installed Calibre, you must enable this utility by going to Preferences
     print output
     exit(1)
 
-# ARGS
-# required:
-# url
-# title
-
-# optional:
-# test
-# verbose
-
 # unpack arguments
-script, url, title = argv
+script, url = argv
+# ARGS
+# url
+
+parser = OptionParser()
+# options:
+parser.add_option("-t","--title", action="store", type="string", dest="title", default="hostname+salt")
+parser.add_option("-s", "--test", action="store_true", dest="test")
+parser.add_option("-v", "--verbose", action="store_true", dest="verbose")
 
 # create a RecipeGenerator object and write out the file for calibre,
 # store the filename in the variable.
@@ -82,7 +82,8 @@ recipe_file = RecipeGenerator().generate( title, url )
 # threaded.
 
 # call regex to replace all non alphanumeric chars in title with _
-# TODO: make this UTF-8 aware for Chinese and Tibetan filenames.
+# Erhhh mah gherrrd, Unicode
+# http://stackoverflow.com/questions/11689223/python-utf-8-filesystem-iso-8859-1-files
 title = re.sub("[^a-zA-Z0-9]", "_", title)
 
 # generate the filename of the ebook
@@ -91,9 +92,15 @@ epub = "%s.epub" % title
 # prepend absolute path to ebook filename
 epub = "/tmp/ebooks/%s" % epub
 
+if ( verbose ):
+    verbose = "-v -v"
+
+if ( test ):
+    test = "--test"
+
 # pass arguments to the ebook-convert program and store the string to be
 # eval'd: JACK BAUER!
-system_string_with_args = "ebook-convert %s %s -v -v" % (recipe_file, ensure_dir(epub))
+system_string_with_args = "ebook-convert %s %s %s %s" % (recipe_file, ensure_dir(epub), verbose, test)
 
 # Eval the string. Do all the work!
 system(system_string_with_args)
