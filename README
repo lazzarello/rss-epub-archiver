@@ -1,11 +1,10 @@
 rss-epub-archiver
 
-Alpha release. October 1 2012.
+Alpha release. December 7 2012.
 
 This utility abstracts the ebook-convert utility included with the Calibre
 ebook conversion application. This alpha release runs in a shell in a single
-thread. It takes two arguments, the URL of the feed to convert and the title of
-the ebook.
+thread. It takes one argument, the URL of the feed to convert.
 
 It depends on Python 2.7.2 and Calibre 0.8.70. There are no python modules
 imported outside of the core, so it should run on any system that can fulfill
@@ -26,11 +25,10 @@ python code in it.
 
 The command line executable:
 
-This script takes two required arguments, the URL of the feed and the title of
-the ebook to be generated. When run it will download the last 5 years of
+This script takes one required argument, the URL of the feed and the title of
+the ebook to be generated. When run it will download the last 7 days of
 articles from the URL and create an ebook in the EPUB format with all text and
-pictures of the original document. It writes the file to /tmp/ebooks/ though
-future releases will make this directory a user preference.
+pictures of the original document. 
 
 The script writes verbose logging to stdout. If run via cron the sysadmin
 should ensure this output is written to a log file to diagnose problems.
@@ -41,16 +39,8 @@ These class files are not cleaned up, so the sysadmin should take care to
 delete all .recipe files once the ebooks are successfully converted and copied
 off the server.
 
-The utility accepts arguments in ASCII. IT IS NOT UTF-8 SAFE for neither titles
-nor URLs! This is a high priority but was not possible in the two week
-development schedule.
-
 Future developments:
 
-1. UTF-8 text as user input.
-2. Move all functions in the executable into the recipe class so the utility can be multi-threaded.
-3. Add smart user arguments: --title and --url
-4. Allow epub output directory to be configured by the user
-5. Create a configuration format in JSON to do batch conversion in a single run
-6. Build a web application front end
-7. Build a pubsub engine for the web app to do async conversion I/O
+1. Create a configuration format in JSON to do batch conversion in a single run
+2. Build a web application front end
+3. Build a pubsub engine for the web app to do async conversion I/O
