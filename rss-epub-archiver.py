@@ -11,6 +11,10 @@ import os
 from os import system
 # import random number generator
 import random
+# import a url parser
+from urlparse import urlparse
+# get the timestamp
+from datetime import date
 
 # define the class to generate the conversion code for calibre
 class RecipeGenerator(object):
@@ -63,33 +67,42 @@ installed Calibre, you must enable this utility by going to Preferences
     print output
     exit(1)
 
+title = ""
+verbose = ""
+test = ""
 # unpack arguments
 parser = argparse.ArgumentParser(description="rip some epubs")
 parser.add_argument("url", metavar="url", nargs=1)
-parser.add_argument("-t","--title", action="store", dest="title", default="hostname+salt", help="the title of the book (default: hostname+salt)")
+parser.add_argument("-t","--title", action="store", dest="title", help="the title of the book (default: url hostname)")
 parser.add_argument("-s", "--test", action="store_true", dest="test", help="run in test mode")
 parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", help="verbose output for debugging")
-parser.add_argument("-d", "--days", action="store", dest="days", type=int, help="the number of days prior to start downloading posts")
+parser.add_argument("-d", "--days", action="store", dest="days", type=int, default=7, help="the number of days prior to start downloading posts (default: 7)")
 parser.add_argument("-o","--outdir", action="store", dest="outdir", default=".", help="the directory to output the final epub file (default: current dir)")
 args = parser.parse_args()
 
-# create a RecipeGenerator object and write out the file for calibre,
-# store the filename in the variable.
-recipe_file = RecipeGenerator().generate( args.title, args.url[0] )
+if ( not args.title ):
+    title = urlparse(args.url[0]).netloc
+else:
+    title = args.title
 
-# call regex to replace all non alphanumeric chars in title with _
+# create a RecipeGenerator object and write out the file for calibre,
+# store the filename in recipe_file.
+recipe_file = RecipeGenerator(days=args.days).generate( title, args.url[0] )
+
+# let's generate the output filename
+# first, call regex to replace all non alphanumeric chars in title with _
+# second, test if the filesystem supports UTF-8 filenames
 # Erhhh mah gherrrd, Unicode
 # http://stackoverflow.com/questions/11689223/python-utf-8-filesystem-iso-8859-1-files
-title = re.sub("[^a-zA-Z0-9]", "_", args.title)
+prefix = re.sub("[^a-zA-Z0-9]", "_", title)
 
 # generate the filename of the ebook
-epub = "/%s.epub" % title
+datestamp = date.today().isoformat()
+epub = "/%s-%s.epub" % (prefix, datestamp)
 
 # prepend absolute path to ebook filename
 epub = args.outdir + epub
 
-verbose = ""
-test = ""
 
 if ( args.verbose ):
     verbose = "-v -v"
