@@ -90,10 +90,9 @@ else:
 recipe_file = RecipeGenerator(days=args.days).generate( title, args.url[0] )
 
 # let's generate the output filename
-# first, call regex to replace all non alphanumeric chars in title with _
-# second, test if the filesystem supports UTF-8 filenames
-# Erhhh mah gherrrd, Unicode
-# http://stackoverflow.com/questions/11689223/python-utf-8-filesystem-iso-8859-1-files
+# below is a discussion about the possibility for a more selection
+# substitution for characters in the filename
+# http://stackoverflow.com/questions/295135/turn-a-string-into-a-valid-filename-in-python
 prefix = re.sub("[^a-zA-Z0-9]", "_", title)
 
 # generate the filename of the ebook
@@ -102,7 +101,6 @@ epub = "/%s-%s.epub" % (prefix, datestamp)
 
 # prepend absolute path to ebook filename
 epub = args.outdir + epub
-
 
 if ( args.verbose ):
     verbose = "-v -v"
@@ -114,6 +112,5 @@ if ( args.test ):
 # eval'd: JACK BAUER!
 system_string_with_args = "ebook-convert %s %s %s %s" % (recipe_file, ensure_dir(epub), verbose, test)
 
-print system_string_with_args
 # Eval the string. Do all the work!
 system(system_string_with_args)
