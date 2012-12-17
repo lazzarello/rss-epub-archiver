@@ -1,5 +1,4 @@
 # import argument and option parsing
-from sys import argv
 import argparse
 # import exit codes
 from sys import exit
@@ -13,7 +12,7 @@ from os import system
 import random
 # import a url parser
 from urlparse import urlparse
-# get the timestamp
+# import the datetime types
 from datetime import date
 
 # define the class to generate the conversion code for calibre
@@ -67,19 +66,25 @@ installed Calibre, you must enable this utility by going to Preferences
     print output
     exit(1)
 
+# because I'm too lazy to do scope correctly
 title = ""
 verbose = ""
 test = ""
-# unpack arguments
+cover_image = ""
+
+# unpack user supplied arguments
 parser = argparse.ArgumentParser(description="rip some epubs")
-parser.add_argument("url", metavar="url", nargs=1)
+parser.add_argument("url", metavar="url", nargs=1, help="A full URL of a data feed")
 parser.add_argument("-t","--title", action="store", dest="title", help="the title of the book (default: url hostname)")
 parser.add_argument("-s", "--test", action="store_true", dest="test", help="run in test mode")
 parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", help="verbose output for debugging")
 parser.add_argument("-d", "--days", action="store", dest="days", type=int, default=7, help="the number of days prior to start downloading posts (default: 7)")
 parser.add_argument("-o","--outdir", action="store", dest="outdir", default=".", help="the directory to output the final epub file (default: current dir)")
+parser.add_argument("-c", "--cover", action="store", dest="cover_image", help="the location of the cover image (file or url)")
+
 args = parser.parse_args()
 
+# set the title for the book
 if ( not args.title ):
     title = urlparse(args.url[0]).netloc
 else:
@@ -90,27 +95,32 @@ else:
 recipe_file = RecipeGenerator(days=args.days).generate( title, args.url[0] )
 
 # let's generate the output filename
-# below is a discussion about the possibility for a more selection
+# below is a discussion about the possibility for a more selective
 # substitution for characters in the filename
 # http://stackoverflow.com/questions/295135/turn-a-string-into-a-valid-filename-in-python
 prefix = re.sub("[^a-zA-Z0-9]", "_", title)
 
 # generate the filename of the ebook
 datestamp = date.today().isoformat()
-epub = "/%s-%s.epub" % (prefix, datestamp)
+epub = "/%s_%s.epub" % (prefix, datestamp)
 
 # prepend absolute path to ebook filename
 epub = args.outdir + epub
 
+# this should probably be a case statement, and it should probably loop
+# over the options hash
 if ( args.verbose ):
     verbose = "-v -v"
 
 if ( args.test ):
     test = "--test"
 
+if ( args.cover_image ):
+    cover_image = "--cover %s" % args.cover_image
+
 # pass arguments to the ebook-convert program and store the string to be
-# eval'd: JACK BAUER!
-system_string_with_args = "ebook-convert %s %s %s %s" % (recipe_file, ensure_dir(epub), verbose, test)
+# eval'd:
+system_string_with_args = "ebook-convert %s %s %s %s %s" % (recipe_file, ensure_dir(epub), verbose, test, cover_image)
 
 # Eval the string. Do all the work!
 system(system_string_with_args)
